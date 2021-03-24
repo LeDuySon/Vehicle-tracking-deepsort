@@ -28,14 +28,17 @@ git clone git@github.com:ZQPei/deep_sort_pytorch.git
 **2. Download YOLOv3 backup**
 ```
 cd detector/YOLOv3/weight/
+
 https://drive.google.com/file/d/1ReGQUVFWG-hH2ajc8m3m9fIQ2DT54qEJ/view?usp=sharing
+
 cd ../../../
 ```
 
-3. Download deepsort parameters ckpt.t7
+3. Download deepsort parameters vehicle_extractor.t7
 ```
 cd deep_sort/deep/checkpoint
 # download vehicle_extractor.t7 from
+
 https://drive.google.com/file/d/1LoL9M6t5Y58KYvaNQOim-6eGB9g_ps_-/view?usp=sharing
 cd ../../../
 ```  
