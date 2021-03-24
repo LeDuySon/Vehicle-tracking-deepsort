@@ -20,7 +20,7 @@ class VideoTracker(object):
         self.args = args
         self.video_path = video_path
         self.logger = get_logger("root")
-
+        self.video_name = video_path.split("/")[-1].split(".")[0]
         use_cuda = args.use_cuda and torch.cuda.is_available()
         if not use_cuda:
             warnings.warn("Running in cpu mode which maybe very slow!", UserWarning)
@@ -37,6 +37,7 @@ class VideoTracker(object):
         self.detector = build_detector(cfg, use_cuda=use_cuda)
         self.deepsort = build_tracker(cfg, use_cuda=use_cuda)
         self.class_names = self.detector.class_names
+        print("Class name: ", self.class_names)
 
     def __enter__(self):
         if self.args.cam != -1:
@@ -56,8 +57,8 @@ class VideoTracker(object):
             os.makedirs(self.args.save_path, exist_ok=True)
 
             # path of saved video and results
-            self.save_video_path = os.path.join(self.args.save_path, "results.avi")
-            self.save_results_path = os.path.join(self.args.save_path, "results.txt")
+            self.save_video_path = os.path.join(self.args.save_path, self.video_name + "_results.avi")
+            self.save_results_path = os.path.join(self.args.save_path, self.video_name + "_results.txt")
 
             # create video writer
             fourcc = cv2.VideoWriter_fourcc(*'MJPG')
@@ -88,7 +89,7 @@ class VideoTracker(object):
             bbox_xywh, cls_conf, cls_ids = self.detector(im)
 
             # select person class
-            mask = cls_ids == 0
+            mask = cls_ids < 7
 
             bbox_xywh = bbox_xywh[mask]
             # bbox dilation just in case bbox too small, delete this line if using a better pedestrian detector

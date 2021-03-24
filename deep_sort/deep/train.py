@@ -57,8 +57,12 @@ if args.resume:
     print('Loading from checkpoint/ckpt.t7')
     checkpoint = torch.load("./checkpoint/ckpt.t7")
     # import ipdb; ipdb.set_trace()
+    
     net_dict = checkpoint['net_dict']
-    net.load_state_dict(net_dict)
+    model_dict = net.state_dict()
+    pretrained_dict = {k: v for k, v in net_dict.items() if k not in ["classifier.4.weight", "classifier.4.bias"]}
+    model_dict.update(pretrained_dict)
+    net.load_state_dict(model_dict)
     best_acc = checkpoint['acc']
     start_epoch = checkpoint['epoch']
 net.to(device)

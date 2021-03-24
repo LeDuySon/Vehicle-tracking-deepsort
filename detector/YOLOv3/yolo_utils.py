@@ -78,7 +78,7 @@ def multi_bbox_ious(boxes1, boxes2, x1y1x2y2=True):
     return carea / uarea
 
 
-from .nms import boxes_nms
+from nms import boxes_nms
 
 
 def post_process(boxes, num_classes, conf_thresh=0.01, nms_thresh=0.45, obj_thresh=0.3):

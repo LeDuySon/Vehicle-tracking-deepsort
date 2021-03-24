@@ -3,13 +3,13 @@ import logging
 import numpy as np
 import cv2
 
-from .darknet import Darknet
-from .yolo_utils import get_all_boxes, nms, post_process, xywh_to_xyxy, xyxy_to_xywh
-from .nms import boxes_nms
+from darknet import Darknet
+from yolo_utils import get_all_boxes, nms, post_process, xywh_to_xyxy, xyxy_to_xywh
+from nms import boxes_nms
 
 
 class YOLOv3(object):
-    def __init__(self, cfgfile, weightfile, namesfile, score_thresh=0.7, conf_thresh=0.01, nms_thresh=0.45,
+    def __init__(self, cfgfile, weightfile, namesfile, score_thresh=0.2, conf_thresh=0.01, nms_thresh=0.45,
                  is_xywh=False, use_cuda=True):
         # net definition
         self.net = Darknet(cfgfile)
@@ -75,7 +75,7 @@ def demo():
     import os
     from vizer.draw import draw_boxes
 
-    yolo = YOLOv3("cfg/yolo_v3.cfg", "weight/yolov3.weights", "cfg/coco.names")
+    yolo = YOLOv3("cfg/yolov3.cfg", "weight/yolov3.backup", "cfg/vehicles.names")
     print("yolo.size =", yolo.size)
     root = "./demo"
     resdir = os.path.join(root, "results")
@@ -86,7 +86,7 @@ def demo():
         img = cv2.imread(filename)
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         bbox, cls_conf, cls_ids = yolo(img)
-
+        print(bbox)
         if bbox is not None:
             img = draw_boxes(img, bbox, cls_ids, cls_conf, class_name_map=yolo.class_names)
         # save results

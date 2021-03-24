@@ -1,5 +1,5 @@
 import torch
-from .yolo_utils import convert2cpu
+from yolo_utils import convert2cpu
 
 
 def parse_cfg(cfgfile):

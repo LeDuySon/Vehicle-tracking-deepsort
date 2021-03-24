@@ -3,7 +3,7 @@ import sys
 import time
 import torch
 import torch.nn as nn
-from .yolo_utils import bbox_iou, multi_bbox_ious, convert2cpu
+from yolo_utils import bbox_iou, multi_bbox_ious, convert2cpu
 
 
 class YoloLayer(nn.Module):
