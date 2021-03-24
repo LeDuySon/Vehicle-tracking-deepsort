@@ -40,6 +40,7 @@ cd deep_sort/deep/checkpoint
 # download vehicle_extractor.t7 from
 
 https://drive.google.com/file/d/1LoL9M6t5Y58KYvaNQOim-6eGB9g_ps_-/view?usp=sharing
+
 cd ../../../
 ```  
 
